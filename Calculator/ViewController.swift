@@ -44,16 +44,12 @@ class ViewController: UIViewController
             enter()
         }
 
-        switch sender.titleLabel! {
-        case "+": performOperation({ (a: Double, b: Double) -> Double in
-            return a + b
-        })
-        case "−":
-            mathFunction = subtract
-        case "×":
-            mathFunction = multiply
-        case "÷":
-            mathFunction = divide
+        switch sender.currentTitle! {
+        case "+": performOperation { $0 + $1 }
+        case "−": performOperation { $0 - $1 }
+        case "×": performOperation { $0 * $1 }
+        case "÷": performOperation { $0 / $1 }
+        case "√": performOperation { sqrt($0) }
         default:
             break
         }
@@ -64,19 +60,22 @@ class ViewController: UIViewController
     
     func performOperation(operation: (Double, Double) -> Double) {
         if operandStack.count >= 2 {
-            let a = operandStack.removeLast()
             let b = operandStack.removeLast()
+            let a = operandStack.removeLast()
             displayValue = operation(a, b)
             enter()
         }
     }
     
     
-    // Math functions
-    func divide(a: Double, b: Double) -> Double     { return a / b }
-    func multiply(a: Double, b: Double) -> Double   { return a * b }
-    func add(a: Double, b: Double) -> Double        { return a + b }
-    func subtract(a: Double, b: Double) -> Double   { return a - b }
+    private func performOperation(operation: Double -> Double) {
+        if operandStack.count >= 1 {
+            displayValue = operation(operandStack.removeLast())
+            enter()
+        }
+    }
+
+    
     
     // Enter button was pressed
     @IBAction func enter() {
