@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bsv-xb-Aby">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bsv-xb-Aby" userLabel="Display">
                                 <rect key="frame" x="0.0" y="20" width="600" height="64"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -442,25 +443,73 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7oY-4Z-jRx" userLabel="History">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="7oY-4Z-jRx" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="2UM-0P-iRV"/>
                             <constraint firstItem="93r-Wk-PxN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="FQ3-A7-cHk"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="93r-Wk-PxN" secondAttribute="bottom" id="Spi-j1-gCX"/>
+                            <constraint firstItem="7oY-4Z-jRx" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="1/5" id="T7X-hz-qE1"/>
                             <constraint firstAttribute="trailing" secondItem="93r-Wk-PxN" secondAttribute="trailing" id="TBx-7U-mqQ"/>
                             <constraint firstItem="Bsv-xb-Aby" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="arf-8h-MnA"/>
                             <constraint firstItem="Bsv-xb-Aby" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="dsc-ND-bng"/>
+                            <constraint firstAttribute="trailing" secondItem="7oY-4Z-jRx" secondAttribute="trailing" id="h2E-7Q-vdJ">
+                                <variation key="heightClass=compact" constant="5"/>
+                            </constraint>
                             <constraint firstItem="93r-Wk-PxN" firstAttribute="top" secondItem="Bsv-xb-Aby" secondAttribute="bottom" id="klK-PH-wPT"/>
+                            <constraint firstItem="7oY-4Z-jRx" firstAttribute="leading" secondItem="93r-Wk-PxN" secondAttribute="trailing" id="tRC-Da-1Xn">
+                                <variation key="heightClass=compact" constant="5"/>
+                            </constraint>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="7oY-4Z-jRx" secondAttribute="bottom" id="vjg-cQ-Qfp"/>
+                            <constraint firstItem="7oY-4Z-jRx" firstAttribute="leading" secondItem="Bsv-xb-Aby" secondAttribute="trailing" constant="38" id="w5c-jH-m9e">
+                                <variation key="heightClass=compact" constant="5"/>
+                            </constraint>
                             <constraint firstItem="Bsv-xb-Aby" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="wsp-6A-BJZ"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="7oY-4Z-jRx"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="vjg-cQ-Qfp"/>
+                                <exclude reference="2UM-0P-iRV"/>
+                                <exclude reference="T7X-hz-qE1"/>
+                                <exclude reference="h2E-7Q-vdJ"/>
+                                <exclude reference="tRC-Da-1Xn"/>
+                                <exclude reference="w5c-jH-m9e"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact">
+                            <mask key="subviews">
+                                <include reference="7oY-4Z-jRx"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="wsp-6A-BJZ"/>
+                                <exclude reference="TBx-7U-mqQ"/>
+                                <include reference="vjg-cQ-Qfp"/>
+                                <include reference="2UM-0P-iRV"/>
+                                <include reference="T7X-hz-qE1"/>
+                                <include reference="h2E-7Q-vdJ"/>
+                                <include reference="tRC-Da-1Xn"/>
+                                <include reference="w5c-jH-m9e"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="clearButton" destination="xt8-4z-9Tu" id="nv3-rs-A23"/>
                         <outlet property="display" destination="Bsv-xb-Aby" id="dwp-5m-7Sy"/>
+                        <outlet property="history" destination="7oY-4Z-jRx" id="wvH-xR-rng"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-31" y="325.5"/>
         </scene>
     </scenes>
 </document>
