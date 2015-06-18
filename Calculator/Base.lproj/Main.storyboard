@@ -492,7 +492,6 @@
                                 <exclude reference="7oY-4Z-jRx"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="sr7-By-0Q5"/>
                                 <exclude reference="2UM-0P-iRV"/>
                                 <exclude reference="DGS-Q2-H82"/>
                                 <exclude reference="G5p-gX-XKH"/>
@@ -502,6 +501,7 @@
                                 <exclude reference="o9h-B0-hgW"/>
                                 <exclude reference="tRC-Da-1Xn"/>
                                 <exclude reference="w5c-jH-m9e"/>
+                                <exclude reference="sr7-By-0Q5"/>
                                 <exclude reference="vjg-cQ-Qfp"/>
                             </mask>
                         </variation>
@@ -525,12 +525,12 @@
                                 <include reference="7oY-4Z-jRx"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="sr7-By-0Q5"/>
                                 <include reference="DGS-Q2-H82"/>
                                 <include reference="G5p-gX-XKH"/>
                                 <include reference="Iu1-6q-WmA"/>
                                 <include reference="o9h-B0-hgW"/>
                                 <exclude reference="dsc-ND-bng"/>
+                                <include reference="sr7-By-0Q5"/>
                             </mask>
                         </variation>
                     </view>
