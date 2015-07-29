@@ -13,6 +13,7 @@
 		320F4C4C1B0FD8C600742CD9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 320F4C4B1B0FD8C600742CD9 /* Images.xcassets */; };
 		320F4C4F1B0FD8C600742CD9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 320F4C4D1B0FD8C600742CD9 /* LaunchScreen.xib */; };
 		320F4C5B1B0FD8C700742CD9 /* CalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320F4C5A1B0FD8C700742CD9 /* CalculatorTests.swift */; };
+		32A0B68D1B6039A300FDF403 /* CalculatorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0B68C1B6039A300FDF403 /* CalculatorBrain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		320F4C541B0FD8C600742CD9 /* CalculatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalculatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		320F4C591B0FD8C700742CD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		320F4C5A1B0FD8C700742CD9 /* CalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorTests.swift; sourceTree = "<group>"; };
+		32A0B68C1B6039A300FDF403 /* CalculatorBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorBrain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			children = (
 				320F4C461B0FD8C600742CD9 /* ViewController.swift */,
 				320F4C481B0FD8C600742CD9 /* Main.storyboard */,
+				32A0B68C1B6039A300FDF403 /* CalculatorBrain.swift */,
 				320F4C4B1B0FD8C600742CD9 /* Images.xcassets */,
 				320F4C4D1B0FD8C600742CD9 /* LaunchScreen.xib */,
 				320F4C421B0FD8C600742CD9 /* Supporting Files */,
@@ -213,6 +216,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32A0B68D1B6039A300FDF403 /* CalculatorBrain.swift in Sources */,
 				320F4C471B0FD8C600742CD9 /* ViewController.swift in Sources */,
 				320F4C451B0FD8C600742CD9 /* AppDelegate.swift in Sources */,
 			);

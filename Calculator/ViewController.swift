@@ -20,8 +20,8 @@ class ViewController: UIViewController
             clearButton.setTitle(clearButtonTitle, forState: UIControlState.Normal)
         }
     }
-    var operandStack = [Double]()
-    var currentOperation = ""
+
+    var brain = CalculatorBrain()
 
     // The value of the calculator display, as a `Double?`
     var displayValue: Double? {
@@ -30,8 +30,13 @@ class ViewController: UIViewController
             return number?.doubleValue
         }
         set {
-            display.text = (newValue ?? 0.0) == 0 ? "0" : "\(newValue!)" // Convert nil and 0.0 to "0"
-            println("displayValue=\(displayValue)")
+            if let value = newValue {
+                display.text = value == 0.0 ? "0" : "\(value)"
+            } else {
+                display.text = ""
+            }
+            
+            println("displayValue = \(displayValue)")
         }
     }
 
@@ -69,62 +74,11 @@ class ViewController: UIViewController
     
     // Operator button was pressed
     @IBAction func operate(sender: UIButton) {
-        if userIsInTheMiddleOfTypingANumber && sender.currentTitle! != "⁺/-" {  // For +/-
+        if userIsInTheMiddleOfTypingANumber {
             enter()
         }
-
-        currentOperation = sender.currentTitle!
-        
-        switch sender.currentTitle! {
-        case "+": performOperation { $0 + $1 }
-        case "−": performOperation { $0 - $1 }
-        case "×": performOperation { $0 * $1 }
-        case "÷": performOperation { $0 / $1 }
-        case "√": performOperation { sqrt($0) }
-        case "sin": performOperation { sin($0) }
-        case "cos": performOperation { cos($0) }
-        case "⁺/-":
-            if userIsInTheMiddleOfTypingANumber {
-                performOperation(displayValue!) { -$0 }
-            } else {
-                performOperation { -$0 }
-            }
-        default:
-            break
-        }
-        
-        
-    }
-    
-    
-    // Perform a binary operation
-    func performOperation(operation: (Double, Double) -> Double) {
-        if operandStack.count >= 2 {
-            let b = operandStack.removeLast()
-            let a = operandStack.removeLast()
-            displayValue = operation(a, b)
-            enter()
-            addToHistory(operation: currentOperation, operands: a, b)
-        }
-    }
-    
-    
-    // Perform a unary operation
-    private func performOperation(operation: Double -> Double) {
-        if operandStack.count >= 1 {
-            let a = operandStack.removeLast()
-            displayValue = operation(a)
-            enter()
-            addToHistory(operation: currentOperation, operands: a)
-        }
-    }
-    
-    
-    // Performs a unary operation on an argument instead of the stack                // For +/-
-    private func performOperation(operand: Double, operation: Double -> Double) {
-        displayValue = operation(operand)
-        if !userIsInTheMiddleOfTypingANumber {
-            enter()
+        if let operation = sender.currentTitle {
+            displayValue = brain.performOperation(operation)
         }
     }
     
@@ -149,18 +103,17 @@ class ViewController: UIViewController
     
     // Enter button was pressed
     @IBAction func enter() {
-        operandStack.append(displayValue!)
         userIsInTheMiddleOfTypingANumber = false
-        println("operandStack = \(operandStack)")
+        if let value = displayValue {
+            displayValue = brain.pushOperand(value)
+        }
     }
     
     
     // Clear or Clear All button was pressed
     @IBAction func clear(sender: UIButton) {
         if sender.currentTitle! == "AC" {
-            operandStack.removeAll()
-            history.text = ""
-            println("operandStack = \(operandStack)")
+            brain.clearOperations()
         }
         displayValue = 0
         userIsInTheMiddleOfTypingANumber = false
