@@ -12,6 +12,7 @@ class CalculatorBrain
 {
     enum Op: Printable {
         case Operand(Double)
+        case Variable(String)
         case UnaryOperation(String, Double -> Double)
         case BinaryOperation(String, (Double, Double) -> Double)
         
@@ -20,6 +21,12 @@ class CalculatorBrain
                 switch self {
                 case .Operand(let operand):
                     return "\(operand)"
+                case .Variable(let variable):
+                    if let variableValue = variableValues[variable] {
+                        return "\(variableValue)"
+                    } else {
+                        return "?"
+                    }
                 case .UnaryOperation(let operation, _):
                     return operation
                 case .BinaryOperation(let operation, _):
@@ -33,10 +40,14 @@ class CalculatorBrain
     
     private var knownOps = [String:Op]()
     
+    var variableValues: [String:Double]! // Stores variables and their values
+    
     init() {
         func learnOp(op: Op) {
             knownOps[op.description] = op
         }
+        
+        variableValues = [String:Double]()
         
         learnOp(Op.BinaryOperation("×", *))
         learnOp(Op.BinaryOperation("−", -))
@@ -81,11 +92,19 @@ class CalculatorBrain
         return result
     }
     
+    // Places an operand onto the stack
     func pushOperand(operand: Double) -> Double? {
         opStack.append(Op.Operand(operand))
         return evaluate()
     }
     
+    // Places a "variable" operand onto the stack.
+    func pushOperand(symbol: String) -> Double? {
+        opStack.append(Op.Variable(symbol))
+        return evaluate()
+    }
+    
+    // Perform an operation (pushes an operation onto the stack)
     func performOperation(symbol: String) -> Double? {
         if let operation = knownOps[symbol] {
             opStack.append(operation)
@@ -93,9 +112,11 @@ class CalculatorBrain
         return evaluate()
     }
     
-    // Reset calculator to factory specs
+    // Reset calculator be freshly initialized
     func clearOperations() {
         opStack.removeAll()
         // Clear history
     }
+    
+    
 }

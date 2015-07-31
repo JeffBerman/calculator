@@ -31,7 +31,7 @@ class ViewController: UIViewController
         }
         set {
             if let value = newValue {
-                display.text = value == 0.0 ? "0" : "\(value)"
+                display.text = value == 0.0 ? "0" : "\(value)" // Prettify 0.0.
             } else {
                 display.text = ""
             }
