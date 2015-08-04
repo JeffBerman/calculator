@@ -36,7 +36,7 @@ class ViewController: UIViewController
                 display.text = ""
             }
             
-            println("displayValue = \(displayValue)")
+            print("displayValue = \(display.text)")
         }
     }
 
@@ -84,7 +84,7 @@ class ViewController: UIViewController
     
     
     // Adds operation to history printout
-    func addToHistory(#operation: String, operands: Double...) {
+    func addToHistory(operation operation: String, operands: Double...) {
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .DecimalStyle
         formatter.maximumFractionDigits = 15

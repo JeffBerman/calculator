@@ -10,7 +10,7 @@ import Foundation
 
 class CalculatorBrain
 {
-    enum Op: Printable {
+    enum Op: CustomStringConvertible {
         case Operand(Double)
         case Variable(String)
         case UnaryOperation(String, Double -> Double)
@@ -21,12 +21,8 @@ class CalculatorBrain
                 switch self {
                 case .Operand(let operand):
                     return "\(operand)"
-                case .Variable(let variable):
-                    if let variableValue = variableValues[variable] {
-                        return "\(variableValue)"
-                    } else {
-                        return "?"
-                    }
+                case .Variable(let symbol):
+                        return symbol
                 case .UnaryOperation(let operation, _):
                     return operation
                 case .BinaryOperation(let operation, _):
@@ -40,14 +36,52 @@ class CalculatorBrain
     
     private var knownOps = [String:Op]()
     
-    var variableValues: [String:Double]! // Stores variables and their values
+    var variableValues = [String:Double]() // Stores variables and their values
+    
+    var description: String {
+        get {
+            var (result, ops) = ("", opStack)
+            repeat {
+                var current: String?
+                (current, ops) = description(ops)
+                result = result == "" ? current! : "\(current!), \(result)"
+            } while ops.count > 0
+            return result
+        }
+    }
+    
+    // Used for recursive evaluation to generate the description
+    func description(ops: [Op]) -> (result: String?, remainingOps: [Op]) {
+        if !ops.isEmpty {
+            var remainingOps = ops
+            let op = remainingOps.removeLast()
+            switch op {
+            case .Operand(let operand):
+                return (String(format: "%g", operand), remainingOps)
+            case .Variable(let symbol):
+                return (symbol, remainingOps)
+            case .UnaryOperation(let symbol, _):
+                let operandEvaluation = description(remainingOps)
+                if let operand = operandEvaluation.result {
+                    return ("\(symbol)(\(operand))", operandEvaluation.remainingOps)
+                }
+            case .BinaryOperation(let symbol, _):
+                let operand1Evaluation = description(remainingOps)
+                if let operand1 = operand1Evaluation.result {
+                    let operand2Evaluation = description(operand1Evaluation.remainingOps)
+                    if let operand2 = operand2Evaluation.result {
+                        return ("\(operand2)\(symbol)\(operand1)", operand2Evaluation.remainingOps)
+                    }
+                }
+            }
+        }
+        return ("?", ops)
+    }
     
     init() {
         func learnOp(op: Op) {
             knownOps[op.description] = op
         }
-        
-        variableValues = [String:Double]()
         
         learnOp(Op.BinaryOperation("×", *))
         learnOp(Op.BinaryOperation("−", -))
@@ -67,6 +101,8 @@ class CalculatorBrain
             switch op {
             case .Operand(let operand):
                 return (operand, remainingOps)
+            case .Variable(let symbol):
+                return (variableValues[symbol], remainingOps)
             case .UnaryOperation(_, let operation):
                 let operandEvaluation = evaluate(remainingOps)
                 if let operand = operandEvaluation.result {
@@ -88,7 +124,7 @@ class CalculatorBrain
     // Entry point to evaluate function
     func evaluate() -> Double? {
         let (result, remainder) = evaluate(opStack)
-        println("\(opStack) = \(result) with \(remainder) left over")
+        print("\(opStack) = \(result) with \(remainder) left over")
         return result
     }
     
