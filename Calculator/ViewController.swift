@@ -35,7 +35,7 @@ class ViewController: UIViewController
             } else {
                 display.text = ""
             }
-            
+            history.text = brain.description
             print("displayValue = \(display.text)")
         }
     }
@@ -81,24 +81,6 @@ class ViewController: UIViewController
             displayValue = brain.performOperation(operation)
         }
     }
-    
-    
-    // Adds operation to history printout
-    func addToHistory(operation operation: String, operands: Double...) {
-        let formatter = NSNumberFormatter()
-        formatter.numberStyle = .DecimalStyle
-        formatter.maximumFractionDigits = 15
-
-        if operands.count == 1 {
-            history.text = history.text! + "\n\n\(operation)(" + formatter.stringFromNumber(operands[0])! + ")"
-            history.text = history.text! + "\n= " + formatter.stringFromNumber(displayValue!)!
-        } else if operands.count == 2 {
-            history.text = history.text! + "\n\n\(operands[0]) \(operation) \(operands[1])"
-            history.text = history.text! + "\n= " + formatter.stringFromNumber(displayValue!)!
-        }
-        
-    }
-
     
     
     // Enter button was pressed
