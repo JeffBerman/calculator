@@ -83,6 +83,22 @@ class ViewController: UIViewController
     }
     
     
+    @IBAction func setMemory(sender: UIButton) {
+        if displayValue != nil {
+            brain.variableValues["M"] = displayValue
+            userIsInTheMiddleOfTypingANumber = false
+            displayValue = brain.evaluate()
+        }
+    }
+    
+    
+    @IBAction func recallMemory(sender: UIButton) {
+        displayValue = brain.pushOperand("M")
+    }
+    
+    
+    
+    
     // Enter button was pressed
     @IBAction func enter() {
         userIsInTheMiddleOfTypingANumber = false

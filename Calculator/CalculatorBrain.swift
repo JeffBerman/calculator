@@ -154,6 +154,7 @@ class CalculatorBrain
     // Reset calculator be freshly initialized
     func clearOperations() {
         opStack.removeAll()
+        variableValues.removeAll()
         // Clear history
     }
     
