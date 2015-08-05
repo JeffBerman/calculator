@@ -67,7 +67,10 @@ class CalculatorBrain
                 }
             case .BinaryOperation(let symbol, _):
                 let operand1Evaluation = description(remainingOps)
-                if let operand1 = operand1Evaluation.result {
+                if var operand1 = operand1Evaluation.result {
+                    if remainingOps.count - operand1Evaluation.remainingOps.count > 2 {
+                        operand1 = "(\(operand1))"
+                    }
                     let operand2Evaluation = description(operand1Evaluation.remainingOps)
                     if let operand2 = operand2Evaluation.result {
                         return ("\(operand2)\(symbol)\(operand1)", operand2Evaluation.remainingOps)
